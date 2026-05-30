@@ -535,33 +535,6 @@ with st.sidebar:
 
     st.markdown("---")
 
-    # API 키 입력 (사이드바 하단)
-    with st.expander("⚙️ AI API 설정", expanded=False):
-        api_key_input = st.text_input(
-            "OpenAI API Key",
-            type="password",
-            placeholder="sk-...",
-            key="openai_api_key_input",
-            label_visibility='visible'
-        )
-        if api_key_input:
-            os.environ["OPENAI_API_KEY"] = api_key_input
-            st.success("✅ API 키 적용됨")
-        else:
-            st.caption("API 키 없으면 규칙 기반(fallback) 작동")
-
-    try:
-        secret_key = st.secrets.get("OPENAI_API_KEY", "")
-    except Exception:
-        secret_key = ""
-
-    has_api = bool(os.environ.get("OPENAI_API_KEY", "") or secret_key)
-    
-    if has_api:
-        st.markdown('<div style="background:#E6F9F5;border-radius:6px;padding:0.3rem 0.6rem;font-size:0.68rem;color:#00A878;font-weight:700;margin-top:0.3rem;">🤖 GPT-4o 연결됨</div>', unsafe_allow_html=True)
-    else:
-        st.markdown('<div style="background:#FFF0E5;border-radius:6px;padding:0.3rem 0.6rem;font-size:0.68rem;color:#E85D04;font-weight:700;margin-top:0.3rem;">📋 규칙 기반 모드</div>', unsafe_allow_html=True)
-
     st.markdown(f'<div style="font-size:0.67rem;color:#7FA8CC;line-height:1.9;margin-top:0.5rem;">📅 {datetime.now().strftime("%Y년 %m월 %d일")}<br>🗂 {data_source}<br>🏫 학교: {df["학교"].nunique()}개교<br>👤 학생: {len(df)}명</div>', unsafe_allow_html=True)
 
 # ── AI 카드 렌더 헬퍼 ─────────────────────────────────────────────────────────
